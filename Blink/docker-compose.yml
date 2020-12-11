@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  ms-sql-server:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Pa55w0rd2020"
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+  app-server:
+    build: .
+    restart: on-failure
+    depends_on: 
+      - "ms-sql-server"
+    environment:
+      DB_SERVER: "ms-sql-server"
+      DB_PORT: "1433"
+      DB_USER: "SA"
+      DB_PASSWORD: "Pa55w0rd2020"
+      DB_NAME: "blink"
+    ports:
+      - "8080:80"

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.808.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blink", "Blink\Blink.csproj", "{063C5AE9-C4C0-4428-86DE-7DE14B83D208}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blink.IntegrationTests", "Blink.IntegrationTests\Blink.IntegrationTests.csproj", "{AF1FCFCF-F9AB-4909-81C1-C441C5DA5DCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{063C5AE9-C4C0-4428-86DE-7DE14B83D208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{063C5AE9-C4C0-4428-86DE-7DE14B83D208}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{063C5AE9-C4C0-4428-86DE-7DE14B83D208}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{063C5AE9-C4C0-4428-86DE-7DE14B83D208}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF1FCFCF-F9AB-4909-81C1-C441C5DA5DCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF1FCFCF-F9AB-4909-81C1-C441C5DA5DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF1FCFCF-F9AB-4909-81C1-C441C5DA5DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF1FCFCF-F9AB-4909-81C1-C441C5DA5DCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8DAE0522-84EC-4F4E-98DB-40209271C34D}
+	EndGlobalSection
+EndGlobal
