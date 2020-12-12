@@ -4,6 +4,7 @@ using Blink.DbContexts;
 using Blink.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,6 +55,17 @@ namespace Blink
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blink v1"));
+            }
+            else
+            {
+                app.UseExceptionHandler(appBuilder =>
+                {
+                    appBuilder.Run(async content =>
+                    {
+                        content.Response.StatusCode = 500;
+                        await content.Response.WriteAsync("An unexpected fault happened. Try again later.");
+                    });
+                });
             }
 
             app.UseHttpsRedirection();

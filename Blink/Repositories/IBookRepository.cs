@@ -7,6 +7,7 @@ namespace Blink.Repositories
     public interface IBookRepository
     {
         public IEnumerable<Book> GetBooks();
+        public IEnumerable<Book> GetBooks(string genre, string publisher);
         public Book GetBook(Guid id);
     }
 }

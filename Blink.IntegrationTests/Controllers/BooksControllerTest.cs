@@ -31,7 +31,7 @@ namespace Blink.IntegrationTests.Controllers
             mockRepo.Setup(repo => repo.GetBooks()).Returns(books);
             
             // Act
-            var result = controller.GetBooks().Result as OkObjectResult;
+            var result = controller.GetBooks(null, null).Result as OkObjectResult;
             var data = result.Value as IEnumerable<BookDto>;
 
             // Assert
@@ -56,7 +56,7 @@ namespace Blink.IntegrationTests.Controllers
             mockRepo.Setup(repo => repo.GetBooks()).Returns(emptyBooks);
 
             // Act
-            var result = controller.GetBooks().Result as OkObjectResult;
+            var result = controller.GetBooks(null, null).Result as OkObjectResult;
             var data = result.Value as IEnumerable<BookDto>;
             
             // Assert

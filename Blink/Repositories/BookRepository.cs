@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Blink.DbContexts;
 using Blink.Entities;
 
@@ -18,6 +19,28 @@ namespace Blink.Repositories
         public IEnumerable<Book> GetBooks()
         {
             return _blinkContext.Books;
+        }
+        
+        public IEnumerable<Book> GetBooks(string genre, string publisher)
+        {
+            if (string.IsNullOrWhiteSpace(publisher) && string.IsNullOrWhiteSpace(publisher))
+            {
+                return GetBooks();
+            }
+
+            var books = _blinkContext.Books as IQueryable<Book>;
+
+            if (!string.IsNullOrWhiteSpace(genre))
+            {
+                books = books.Where(book => book.Genre.Name == genre);
+            }
+            
+            if (!string.IsNullOrWhiteSpace(publisher))
+            {
+                books = books.Where(book => book.Publisher.Name == publisher);
+            }
+            
+            return books.ToList();
         }
 
         public Book GetBook(Guid id)

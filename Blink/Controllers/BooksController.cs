@@ -24,9 +24,13 @@ namespace Blink.Controllers
         }
         
         [HttpGet]
-        public ActionResult<IEnumerable<BookDto>> GetBooks()
+        [HttpHead]
+        public ActionResult<IEnumerable<BookDto>> GetBooks(
+            [FromQuery(Name = "filter[genre]")] string genre,
+            [FromQuery(Name = "filter[publisher]")] string publisher
+        )
         {
-            var books = _bookRepository.GetBooks();
+            var books = _bookRepository.GetBooks(genre, publisher);
             
             return Ok(_mapper.Map<IEnumerable<BookDto>>(books));
         }
