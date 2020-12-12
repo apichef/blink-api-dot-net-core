@@ -1,6 +1,7 @@
+using Blink.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Blink.Models
+namespace Blink.DbContexts
 {
     public class BlinkContext : DbContext
     {

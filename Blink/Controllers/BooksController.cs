@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Blink.Dtos;
-using Blink.Exceptions;
-using Blink.Extensions;
+using AutoMapper;
+using Blink.Models;
 using Blink.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,72 +11,37 @@ namespace Blink.Controllers
     [Route("api/books")]
     public class BooksController : ControllerBase
     {
-        private readonly IBookRepository _repository;
+        private readonly IBookRepository _bookRepository;
+        private readonly IMapper _mapper;
         
-        public BooksController(IBookRepository repository)
+        public BooksController(IBookRepository bookRepository, IMapper mapper)
         {
-            _repository = repository;
+            _bookRepository = bookRepository ??
+                throw new ArgumentNullException(nameof(bookRepository));
+
+            _mapper = mapper ??
+                throw new ArgumentNullException(nameof(mapper));
         }
         
         [HttpGet]
         public ActionResult<IEnumerable<BookDto>> GetBooks()
         {
-            var books = _repository.All();
+            var books = _bookRepository.GetBooks();
             
-            return Ok(books.Select(book => book.AsDto()));
+            return Ok(_mapper.Map<IEnumerable<BookDto>>(books));
         }
         
-        [HttpGet("{id}")]
-        public ActionResult<BookDto> GetBook(Guid id)
+        [HttpGet("{bookId}")]
+        public ActionResult<BookDto> GetBook(Guid bookId)
         {
-            try
-            {
-                var book = _repository.Find(id);
-                
-                return Ok(book.AsDto());
-            }
-            catch (ModelNotFoundException)
+            var book = _bookRepository.GetBook(bookId);
+
+            if (book == null)
             {
                 return NotFound();
             }
-        }
-        
-        [HttpPost]
-        public ActionResult<BookDto> PostBook(CreateBookDto bookDto)
-        {
-            var book = _repository.Create(bookDto);
             
-            return CreatedAtAction("GetBook", new { Id = book.Id }, book.AsDto());
-        }
-
-        [HttpPut("{id}")]
-        public ActionResult PutBook(Guid id, UpdateBookDto bookDto)
-        {
-            try
-            {
-                _repository.Update(id, bookDto);
-            }
-            catch (ModelNotFoundException)
-            {
-                return NotFound();
-            }
-
-            return NoContent();
-        }
-        
-        [HttpDelete("{id}")]
-        public ActionResult DeleteBook(Guid id)
-        {
-            try
-            {
-                _repository.Delete(id);
-            }
-            catch (ModelNotFoundException)
-            {
-                return NotFound();
-            }
-
-            return NoContent();
+            return Ok(_mapper.Map<BookDto>(book));
         }
     }
 }

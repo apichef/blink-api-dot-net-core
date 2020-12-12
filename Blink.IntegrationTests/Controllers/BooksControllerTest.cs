@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using AutoMapper;
 using Blink.Controllers;
-using Blink.Dtos;
-using Blink.Exceptions;
 using Blink.Models;
+using Blink.Entities;
 using Blink.Repositories;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -25,10 +25,11 @@ namespace Blink.IntegrationTests.Controllers
             List<Book> books = new() { theBook, anotherBook };
             
             var mockRepo = new Mock<IBookRepository>();
-            mockRepo.Setup(repo => repo.All()).Returns(books);
+            var mockMapper = new Mock<IMapper>();
+            var controller = new BooksController(mockRepo.Object, mockMapper.Object);
             
-            var controller = new BooksController(mockRepo.Object);
-
+            mockRepo.Setup(repo => repo.GetBooks()).Returns(books);
+            
             // Act
             var result = controller.GetBooks().Result as OkObjectResult;
             var data = result.Value as IEnumerable<BookDto>;
@@ -49,8 +50,10 @@ namespace Blink.IntegrationTests.Controllers
             var emptyBooks = new List<Book>();
             
             var mockRepo = new Mock<IBookRepository>();
-            mockRepo.Setup(repo => repo.All()).Returns(emptyBooks);
-            var controller = new BooksController(mockRepo.Object);
+            var mockMapper = new Mock<IMapper>();
+            var controller = new BooksController(mockRepo.Object, mockMapper.Object);
+            
+            mockRepo.Setup(repo => repo.GetBooks()).Returns(emptyBooks);
 
             // Act
             var result = controller.GetBooks().Result as OkObjectResult;
@@ -70,8 +73,10 @@ namespace Blink.IntegrationTests.Controllers
             var theBook = new Book() { Id = Guid.NewGuid(), Name = "The Book" };
             
             var mockRepo = new Mock<IBookRepository>();
-            mockRepo.Setup(repo => repo.Find(theBook.Id)).Returns(theBook);
-            var controller = new BooksController(mockRepo.Object);
+            var mockMapper = new Mock<IMapper>();
+            var controller = new BooksController(mockRepo.Object, mockMapper.Object);
+            
+            mockRepo.Setup(repo => repo.GetBook(theBook.Id)).Returns(theBook);
 
             // Act
             var result = controller.GetBook(theBook.Id).Result as OkObjectResult;
@@ -91,90 +96,14 @@ namespace Blink.IntegrationTests.Controllers
             var bookId = Guid.NewGuid();
             
             var mockRepo = new Mock<IBookRepository>();
-            mockRepo.Setup(repo => repo.Find(bookId)).Throws(new ModelNotFoundException());
-            var controller = new BooksController(mockRepo.Object);
+            var mockMapper = new Mock<IMapper>();
+            var controller = new BooksController(mockRepo.Object, mockMapper.Object);
+            
+            mockRepo.Setup(repo => repo.GetBook(bookId)).Returns((Book) null);
 
             // Act
             var result = controller.GetBook(bookId).Result;
             
-            // Assert
-            result.Should().BeOfType<NotFoundResult>()
-                .Which.StatusCode.Should().Be((int) HttpStatusCode.NotFound);
-        }
-        
-        [Fact]
-        public void PutBook_can_update_a_book()
-        {
-            // Arrange
-            UpdateBookDto dto = new() { Name = "new name" };
-            Book book = new() { Id = Guid.NewGuid(), Name = "old name" };
-            
-            var mockRepo = new Mock<IBookRepository>();
-            mockRepo.Setup(repo => repo.Update(book.Id, dto));
-            
-            var controller = new BooksController(mockRepo.Object);
-
-            // Act
-            var result = controller.PutBook(book.Id, dto);
-
-            // Assert
-            result.Should().BeOfType<NoContentResult>()
-                .Which.StatusCode.Should().Be((int) HttpStatusCode.NoContent);
-        }
-        
-        [Fact]
-        public void PutBook_returns_not_found_when_there_is_no_book_for_the_id()
-        {
-            // Arrange
-            var bookId = Guid.NewGuid();
-            UpdateBookDto dto = new() { Name = "new name" };
-            
-            var mockRepo = new Mock<IBookRepository>();
-            mockRepo.Setup(repo => repo.Update(bookId, dto)).Throws(new ModelNotFoundException());
-            
-            var controller = new BooksController(mockRepo.Object);
-
-            // Act
-            var result = controller.PutBook(bookId, dto);
-
-            // Assert
-            result.Should().BeOfType<NotFoundResult>()
-                .Which.StatusCode.Should().Be((int) HttpStatusCode.NotFound);
-        }
-        
-        [Fact]
-        public void DeleteBook_can_delete_a_book()
-        {
-            // Arrange
-            var bookId = Guid.NewGuid();
-            
-            var mockRepo = new Mock<IBookRepository>();
-            mockRepo.Setup(repo => repo.Delete(bookId));
-            
-            var controller = new BooksController(mockRepo.Object);
-
-            // Act
-            var result = controller.DeleteBook(bookId);
-
-            // Assert
-            result.Should().BeOfType<NoContentResult>()
-                .Which.StatusCode.Should().Be((int) HttpStatusCode.NoContent);
-        }
-        
-        [Fact]
-        public void DeleteBook_returns_not_found_when_there_is_no_book_for_the_id()
-        {
-            // Arrange
-            var bookId = Guid.NewGuid();
-            
-            var mockRepo = new Mock<IBookRepository>();
-            mockRepo.Setup(repo => repo.Delete(bookId)).Throws(new ModelNotFoundException());
-            
-            var controller = new BooksController(mockRepo.Object);
-
-            // Act
-            var result = controller.DeleteBook(bookId);
-
             // Assert
             result.Should().BeOfType<NotFoundResult>()
                 .Which.StatusCode.Should().Be((int) HttpStatusCode.NotFound);

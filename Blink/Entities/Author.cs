@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.ComponentModel.DataAnnotations;
 
-namespace Blink.Models
+namespace Blink.Entities
 {
     public class Author
     {
@@ -11,8 +11,12 @@ namespace Blink.Models
             Books = new List<AuthorBook>();
         }
         
+        [Key]
         public Guid Id { get; set; }
+        
+        [Required]
         public string Name { get; set; }
+        
         public List<AuthorBook> Books { get; set; }
     }
 }

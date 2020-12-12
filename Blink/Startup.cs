@@ -1,4 +1,6 @@
-using Blink.Models;
+using System;
+using AutoMapper;
+using Blink.DbContexts;
 using Blink.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,7 +23,13 @@ namespace Blink
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(setupAction =>
+            {
+                setupAction.ReturnHttpNotAcceptable = true;
+            }).AddXmlDataContractSerializerFormatters();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
             services.AddDbContext<BlinkContext>(options => options.UseSqlServer(GetDbConnectionString()));
             services.AddScoped<IBookRepository, BookRepository>();
             

@@ -1,65 +1,55 @@
 using System;
 using System.Collections.Generic;
-using Blink.Dtos;
-using Blink.Exceptions;
-using Blink.Models;
+using Blink.DbContexts;
+using Blink.Entities;
 
 namespace Blink.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private readonly BlinkContext _context;
+        private readonly BlinkContext _blinkContext;
 
-        public BookRepository(BlinkContext context)
+        public BookRepository(BlinkContext blinkContext)
         {
-            _context = context;
+            _blinkContext = blinkContext ??
+                throw new ArgumentNullException(nameof(blinkContext));
         }
         
-        public IEnumerable<Book> All()
+        public IEnumerable<Book> GetBooks()
         {
-            return _context.Books;
+            return _blinkContext.Books;
         }
 
-        public Book Find(Guid id)
+        public Book GetBook(Guid id)
         {
-            return _context.Books.Find(id);
+            return _blinkContext.Books.Find(id);
         }
 
-        public Book Create(CreateBookDto dto)
+        public void Create(Book book)
         {
-            Book book = new() { Name = dto.Name };
-            _context.Books.Add(book);
-            _context.SaveChanges();
-            
-            return book;
-        }
-
-        public void Update(Guid id, UpdateBookDto dto)
-        {
-            var book = Find(id);
-
             if (book == null)
             {
-                throw new ModelNotFoundException();
+                throw new ArgumentNullException(nameof(book));
             }
             
-            book.Name = dto.Name;
-            
-            _context.SaveChanges();
+            _blinkContext.Books.Add(book);
+            _blinkContext.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Update(Book book)
         {
-            var book = Find(id);
+            _blinkContext.SaveChanges();
+        }
 
+        public void Delete(Book book)
+        {
             if (book == null)
             {
-                throw new ModelNotFoundException();
+                throw new ArgumentNullException(nameof(book));
             }
             
-            _context.Books.Remove(book);
-            
-            _context.SaveChanges();
+            _blinkContext.Books.Remove(book);
+            _blinkContext.SaveChanges();
         }
     }
 }
