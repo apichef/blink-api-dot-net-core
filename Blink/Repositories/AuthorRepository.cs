@@ -13,7 +13,7 @@ namespace Blink.Repositories
         public AuthorRepository(BlinkContext blinkContext)
         {
             _blinkContext = blinkContext ??
-                            throw new ArgumentNullException(nameof(blinkContext));
+                throw new ArgumentNullException(nameof(blinkContext));
         }
         
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)
