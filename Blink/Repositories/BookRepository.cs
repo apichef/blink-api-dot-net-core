@@ -53,6 +53,16 @@ namespace Blink.Repositories
             _blinkContext.Books.Add(book);
         }
 
+        public void UpdateBook(Book book)
+        {
+            // this does not need an implementation
+        }
+
+        public void DeleteBook(Book book)
+        {
+            _blinkContext.Books.Remove(book);
+        }
+
         public void Save()
         {
             _blinkContext.SaveChanges();

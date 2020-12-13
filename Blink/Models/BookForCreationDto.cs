@@ -2,12 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Blink.Models
 {
-    public record BookForCreationDto
+    public record BookForCreationDto : BookForManipulationDto
     {
-        [Required]
-        [MaxLength(100)]
-        public string Name { get; init; }
-
         public PublisherForCreationDto Publisher { get; set; }
     }
 }

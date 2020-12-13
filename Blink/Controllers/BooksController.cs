@@ -62,11 +62,44 @@ namespace Blink.Controllers
         }
 
         [HttpOptions]
-        public IActionResult GetOptions()
+        public ActionResult GetOptions()
         {
             Response.Headers.Add("Allow", "GET,OPTIONS,POST");
 
             return Ok();
+        }
+        
+        [HttpPut("{bookId}")]
+        public ActionResult UpdateBook(Guid bookId, BookForUpdateDto bookDto)
+        {
+            var book = _bookRepository.GetBook(bookId);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(bookDto, book);
+            _bookRepository.UpdateBook(book);
+            _bookRepository.Save();
+
+            return NoContent();
+        }
+        
+        [HttpDelete("{bookId}")]
+        public ActionResult DeleteBook(Guid bookId)
+        {
+            var book = _bookRepository.GetBook(bookId);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            _bookRepository.DeleteBook(book);
+            _bookRepository.Save();
+
+            return NoContent();
         }
     }
 }
