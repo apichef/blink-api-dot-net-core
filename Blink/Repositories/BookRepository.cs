@@ -48,30 +48,13 @@ namespace Blink.Repositories
             return _blinkContext.Books.Find(id);
         }
 
-        public void Create(Book book)
+        public void AddBook(Book book)
         {
-            if (book == null)
-            {
-                throw new ArgumentNullException(nameof(book));
-            }
-            
             _blinkContext.Books.Add(book);
-            _blinkContext.SaveChanges();
         }
 
-        public void Update(Book book)
+        public void Save()
         {
-            _blinkContext.SaveChanges();
-        }
-
-        public void Delete(Book book)
-        {
-            if (book == null)
-            {
-                throw new ArgumentNullException(nameof(book));
-            }
-            
-            _blinkContext.Books.Remove(book);
             _blinkContext.SaveChanges();
         }
     }

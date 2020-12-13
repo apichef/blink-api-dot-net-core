@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Blink.Entities
 {
@@ -18,9 +19,9 @@ namespace Blink.Entities
         [Required]
         public string Name { get; set; }
         
-        public Guid GenreId { get; set; }
+        public Guid? GenreId { get; set; }
         
-        public Guid PublisherId { get; set; }
+        public Guid? PublisherId { get; set; }
         
         public List<AuthorBook> Authors { get; set; }
         

@@ -9,5 +9,7 @@ namespace Blink.Repositories
         public IEnumerable<Book> GetBooks();
         public IEnumerable<Book> GetBooks(string genre, string publisher);
         public Book GetBook(Guid id);
+        public void AddBook(Book book);
+        public void Save();
     }
 }

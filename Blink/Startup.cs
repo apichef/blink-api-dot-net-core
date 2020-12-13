@@ -32,7 +32,9 @@ namespace Blink
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
             services.AddDbContext<BlinkContext>(options => options.UseSqlServer(GetDbConnectionString()));
+            
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
             
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Blink", Version = "v1"}); });
         }
