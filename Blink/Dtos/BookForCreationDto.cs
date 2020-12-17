@@ -1,4 +1,4 @@
-namespace Blink.Models
+namespace Blink.Dtos
 {
     public record BookForCreationDto : BookForManipulationDto
     {

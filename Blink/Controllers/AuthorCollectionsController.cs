@@ -4,7 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Blink.Entities;
 using Blink.Helpers;
-using Blink.Models;
+using Blink.Dtos;
 using Blink.Repositories;
 using Microsoft.AspNetCore.Mvc;
 

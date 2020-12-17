@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Blink.Models
+namespace Blink.Dtos
 {
     public record PublisherForCreationDto
     {

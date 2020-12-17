@@ -1,6 +1,6 @@
 using System;
 
-namespace Blink.Models
+namespace Blink.Dtos
 {
     public record BookDto
     {

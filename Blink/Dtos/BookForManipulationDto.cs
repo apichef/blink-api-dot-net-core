@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Blink.Models
+namespace Blink.Dtos
 {
-    public record AuthorForCreationDto
+    public abstract record BookForManipulationDto
     {
         [Required]
         [MaxLength(100)]
