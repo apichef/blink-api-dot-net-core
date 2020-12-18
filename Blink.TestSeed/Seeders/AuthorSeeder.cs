@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Blink.DbContexts;
 using Blink.Entities;
 
-namespace Blink.IntegrationTests.Seeders
+namespace Blink.TestSeed.Seeders
 {
     public class AuthorSeeder
     {

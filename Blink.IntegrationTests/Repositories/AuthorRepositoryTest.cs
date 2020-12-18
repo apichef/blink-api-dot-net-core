@@ -4,7 +4,7 @@ using System.Linq;
 using Blink.DbContexts;
 using Blink.Entities;
 using Blink.Repositories;
-using Blink.IntegrationTests.Seeders;
+using Blink.TestSeed.Seeders;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -60,7 +60,7 @@ namespace Blink.IntegrationTests.Repositories
 
         private List<Author> CreateAuthors(int count)
         {
-            return (new AuthorSeeder(_dbContext)).Create(2);
+            return (new AuthorSeeder(_dbContext)).Create(count);
         }
     }
 }

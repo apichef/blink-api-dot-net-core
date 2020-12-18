@@ -50,7 +50,7 @@ namespace Blink.Controllers
         }
 
         [HttpPost]
-        public ActionResult<AuthorDto> CreateAuthorCollection(IEnumerable<AuthorForCreationDto> authorCollection)
+        public ActionResult<IEnumerable<AuthorDto>> CreateAuthorCollection(IEnumerable<AuthorForCreationDto> authorCollection)
         {
             var authors = _mapper.Map<IEnumerable<Author>>(authorCollection);
 

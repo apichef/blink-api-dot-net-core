@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blink", "Blink\Blink.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blink.IntegrationTests", "Blink.IntegrationTests\Blink.IntegrationTests.csproj", "{AF1FCFCF-F9AB-4909-81C1-C441C5DA5DCA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blink.AcceptanceTests", "Blink.AcceptanceTests\Blink.AcceptanceTests.csproj", "{C8CC366F-F729-427A-95AA-05E4DDEE560F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blink.TestSeed", "Blink.TestSeed\Blink.TestSeed.csproj", "{EE8B3CFD-9BBC-4DB7-84F8-15AD1CF69335}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{AF1FCFCF-F9AB-4909-81C1-C441C5DA5DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF1FCFCF-F9AB-4909-81C1-C441C5DA5DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF1FCFCF-F9AB-4909-81C1-C441C5DA5DCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8CC366F-F729-427A-95AA-05E4DDEE560F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8CC366F-F729-427A-95AA-05E4DDEE560F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8CC366F-F729-427A-95AA-05E4DDEE560F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8CC366F-F729-427A-95AA-05E4DDEE560F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE8B3CFD-9BBC-4DB7-84F8-15AD1CF69335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE8B3CFD-9BBC-4DB7-84F8-15AD1CF69335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE8B3CFD-9BBC-4DB7-84F8-15AD1CF69335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE8B3CFD-9BBC-4DB7-84F8-15AD1CF69335}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

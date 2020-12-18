@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Blink\Blink.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Faker.Net" Version="1.4.108" />
+    </ItemGroup>
+
+</Project>

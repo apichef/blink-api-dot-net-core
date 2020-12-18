@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Blink.IntegrationTests.Controllers
+namespace Blink.AcceptanceTests.Controllers
 {
-    public class BaseIntegrationTest
+    public class BaseIntegrationTest : IDisposable
     {
         protected readonly HttpClient TestClient;
         protected readonly BlinkContext DbContext;
@@ -20,12 +20,7 @@ namespace Blink.IntegrationTests.Controllers
             var appFactory = new WebApplicationFactory<Startup>()
                 .WithWebHostBuilder(ConfigureWebHost);
             
-            var scopeFactory = appFactory.Services.GetService<IServiceScopeFactory>();
-            using (var scope = scopeFactory.CreateScope())
-            {
-                DbContext = scope.ServiceProvider.GetService<BlinkContext>();
-            }
-
+            DbContext = appFactory.Services.CreateScope().ServiceProvider.GetService<BlinkContext>();
             TestClient = appFactory.CreateClient();
         }
 
@@ -38,8 +33,13 @@ namespace Blink.IntegrationTests.Controllers
                     services.Remove(descriptor);
 
                 services.AddDbContext<BlinkContext>(options =>
-                    options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+                    options.UseInMemoryDatabase("blink-test-db"));
             });
+        }
+
+        public void Dispose()
+        {
+            DbContext.Database.EnsureDeleted();
         }
     }
 }

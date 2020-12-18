@@ -101,6 +101,8 @@ namespace Blink
             }
             else
             {
+                UpdateDatabase(app);
+                
                 app.UseExceptionHandler(appBuilder =>
                 {
                     appBuilder.Run(async content =>
@@ -118,6 +120,17 @@ namespace Blink
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+        
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<BlinkContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }

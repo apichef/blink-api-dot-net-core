@@ -5,7 +5,11 @@ namespace Blink.DbContexts
 {
     public class BlinkContext : DbContext
     {
-        public BlinkContext(DbContextOptions<BlinkContext> options) : base(options) {}
+        public BlinkContext(DbContextOptions<BlinkContext> options) :
+            base(options)
+        {
+            
+        }
         
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
